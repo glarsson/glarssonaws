@@ -1,50 +1,26 @@
 # global
-variable "environment" {
-  description = "The environment we are building"
-}
-
-variable "region" {
-  description = "Region that the instances will be created in"
-}
-
-variable "availability_zone" {
-  description = "The AZ that the resources will be launched in"
+variable "environment" {}
+variable "region" {}
+variable "availability_zones" {
+  type = "list"
 }
 
 # vpc
-variable "vpc_cidr" {
-  description = "The CIDR block of the VPC"
+variable "vpc_cidr" {}
+variable "public_subnet_cidrs" {
+  type = "list"
 }
-
-variable "public_subnet_cidr" {
-  description = "The CIDR block of the public subnet"
-}
-
-variable "private_subnet_cidr" {
-  description = "The CIDR block of the private subnet"
+variable "private_subnet_cidrs" {
+  type = "list"
 }
 
 # instances
-variable "key_name" {
-  description = "The aws keypair to use"
-}
-variable "web_instance_count" {
-  description = "The total count of web instances to launch"
-}
-variable "bastion_instance_type" {
-  description = "The instance type/size to use for the bastion server"
-}
-variable "bastion_ami" {
-  description = "The AMI to use for the bastion server"
-}
-variable "web_instance_type" {
-  description = "The instance type/size to use for the web nodes"
-}
-variable "web_ami" {
-  description = "The AMI to use for the web nodes"
-}
+variable "key_name" {}
+variable "web_instance_count" {}
+variable "bastion_instance_type" {}
+variable "bastion_ami" {}
+variable "web_instance_type" {}
+variable "web_ami" {}
 
 # dns
-variable "dns_zone_name" {
-  description = "The name of the DNS zone"
-}
+variable "dns_zone_name" {}

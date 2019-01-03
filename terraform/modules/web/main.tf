@@ -1,19 +1,19 @@
 resource "aws_security_group" "web_server_sg" {
   name        = "${var.environment}-web-server-sg"
-  description = "Security group for web nodes"
+  description = "Security group for web nodes to allow the local network to access ssh and http"
   vpc_id      = "${var.vpc_id}"
 
   ingress {
-    from_port = 22
-    to_port   = 22
-    protocol  = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = ["${var.vpc_cidr_block}"]
   }
 
   ingress {
-    from_port = 80
-    to_port   = 80
-    protocol  = "tcp"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
     cidr_blocks = ["${var.vpc_cidr_block}"]
   }
 
@@ -38,9 +38,9 @@ resource "aws_security_group" "web_server_sg" {
 }
 
 resource "aws_security_group" "web_inbound_sg" {
-  name        = "${var.environment}-web-inbound-sg"
-  description = "Allow HTTP from Anywhere"
-  vpc_id      = "${var.vpc_id}"
+  name          = "${var.environment}-web-inbound-sg"
+  description   = "Allow HTTP from Anywhere"
+  vpc_id        = "${var.vpc_id}"
 
   ingress {
     from_port   = 80
@@ -64,41 +64,49 @@ resource "aws_security_group" "web_inbound_sg" {
   }
 
   tags {
-    Name = "${var.environment}-web-inbound-sg"
+    Name        = "${var.environment}-web-inbound-sg"
+    Environment = "${var.environment}"
   }
 }
 
 resource "aws_instance" "web" {
-  count             = "${var.web_instance_count}"
+  count             = "${length(var.private_subnet_cidrs)}"
   ami               = "${var.web_ami}"
   instance_type     = "${var.web_instance_type}"
-  subnet_id         = "${var.private_subnet_id}"
+  subnet_id         = "${element(var.private_subnets_id, count.index)}"
   vpc_security_group_ids = [
     "${aws_security_group.web_server_sg.id}"
   ]
   
-  # depends_on doesn't work well in modules, maybe in 0.12
-  # depends_on = ["....."]
-
-  # make sure we delete the disks when destroying the environment
   ebs_block_device {
     device_name = "/dev/sda1"
     delete_on_termination = true
   }
 
-  key_name          = "${var.key_name}"
-  user_data         = "${file("${path.module}/files/user_data.sh")}"
+  key_name        = "${var.key_name}"
+  user_data       = "${file("${path.module}/files/user_data.sh")}"
   tags = {
-    Name        = "${var.environment}-web-${count.index+1}"
-    Environment = "${var.environment}"
+    Name          = "${var.environment}-web-${count.index+1}"
+    Environment   = "${var.environment}"
   }
 }
 
 resource "aws_elb" "web" {
   name            = "${var.environment}-web-lb"
-  subnets         = ["${var.public_subnet_id}"]
+  subnets         = ["${var.public_subnets_id}"]
   security_groups = ["${aws_security_group.web_inbound_sg.id}"]
-
+  /* look into configuring a certificate, in the mean time skip https
+  listener = [{
+    instance_port = 80
+    instance_protocol = "http"
+    lb_port = 80
+    lb_protocol = "http"
+  },{
+    instance_port = 443
+    instance_protocol = "https"
+    lb_port = 443
+    lb_protocol = "https"
+  }] */
   listener {
     instance_port     = 80
     instance_protocol = "http"
@@ -106,7 +114,6 @@ resource "aws_elb" "web" {
     lb_protocol       = "http"
   }
   instances = ["${aws_instance.web.*.id}"]
-
   tags {
     Environment = "${var.environment}"
   }
