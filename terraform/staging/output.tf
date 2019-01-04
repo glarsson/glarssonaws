@@ -1,5 +1,5 @@
-output "loadbalancer_dns_name" {
-  value = "${module.web.lb_dns_name}"
+output "web_loadbalancer_dns_name" {
+  value = "${module.web_lb.web_lb_dns_name}"
 }
 
 output "name_servers" {
@@ -7,11 +7,11 @@ output "name_servers" {
 }
 
 output "bastion_dns_names" {
-  value = "${module.network.bastion_dns_names}"
+  value = "${module.bastion_instance.bastion_dns_names}"
 }
 
-output "web_nodes_dns_names" {
-  value = "${module.web.web_nodes_dns_names}"
+output "web_nodes_ips" {
+  value = "${module.web_instance.web_nodes_ips}"
 }
 
 output "cluster_endpoint" {

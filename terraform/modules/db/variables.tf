@@ -1,5 +1,5 @@
 variable "environment" {}
-variable "db_subnets_id" {
+variable "db_subnet_ids" {
   type = "list"
 }
 variable "db_sg_id" {}

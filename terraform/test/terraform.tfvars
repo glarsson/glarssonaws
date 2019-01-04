@@ -1,7 +1,9 @@
 # global
 environment             = "test"
-region                  = "eu-north-1"
-availability_zones      = ["eu-north-1a"]
+
+# temporarily change region from eu-north-1 to us-east-1 because of EC2 instance limits (waiting for support to increase limits)
+region                  = "us-east-1"
+availability_zones      = ["us-east-1a"]
 
 # vpc
 vpc_cidr                = "10.0.0.0/16"
@@ -11,10 +13,16 @@ db_subnet_cidrs        = ["10.0.101.0/24"]
 
 # instances
 key_name                = "test_key"
-bastion_instance_type   = "t3.nano"
-bastion_ami             = "ami-b133bccf"
+
+# Chef Server doesn't seem to want to fly with <2GB of RAM - to verify we're switching to a larger instance for bastion (t3.small)
+# later to be made into its own instance, this is only for developing automated Chef Server installation
+# bastion_instance_type   = "t3.nano" 
+bastion_instance_type   = "t3.small" 
+
+# temporarily change ami from "ami-b133bccf" in eu-north-1 to same but in us-east-1: "ami-9887c6e7"
+bastion_ami             = "ami-9887c6e7"
 web_instance_type       = "t3.nano"
-web_ami                 = "ami-b133bccf"
+web_ami                 = "ami-9887c6e7"
 database_instance_type  = "db.t3.small"
 
 # dns

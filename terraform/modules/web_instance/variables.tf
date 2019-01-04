@@ -1,6 +1,6 @@
 variable "web_ami" {}
 variable "web_instance_type" {}
-variable "public_subnets_id" {
+variable "public_subnet_ids" {
   type = "list"
 }
 variable "private_subnets_id" {

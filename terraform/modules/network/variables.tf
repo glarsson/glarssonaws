@@ -12,6 +12,3 @@ variable "environment" {}
 variable "availability_zones" {
   type = "list"
 }
-variable "bastion_instance_type" {}
-variable "bastion_ami" {}
-variable "key_name" {}
