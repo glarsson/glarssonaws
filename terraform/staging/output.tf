@@ -7,5 +7,13 @@ output "name_servers" {
 }
 
 output "bastion_dns_names" {
-    value = "${module.network.bastion_dns_names}"
+  value = "${module.network.bastion_dns_names}"
+}
+
+output "web_nodes_dns_names" {
+  value = "${module.web.web_nodes_dns_names}"
+}
+
+output "cluster_endpoint" {
+  value = "${module.db.cluster_endpoint}"
 }
