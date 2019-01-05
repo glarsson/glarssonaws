@@ -34,7 +34,7 @@ resource "aws_security_group" "bastion_server_sg" {
 
 resource "aws_security_group" "web_server_sg" {
   name        = "${var.environment}-web-server-sg"
-  description = "Security group for web nodes to allow the local network to access ssh and http"
+  description = "Security group for web nodes to allow the local network to access ssh and web services"
   vpc_id      = "${var.vpc_id}"
 
   ingress {
