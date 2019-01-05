@@ -1,4 +1,16 @@
 
+#if (${var.db_single_or_ha} == "ha")
+#
+#resource "aws_eip" "if-eip" {
+#  count = "${var.create_first_eip == true ? 1 : 0}"
+#  instance = "${aws_instance.example.id}"
+#}
+
+#resource "aws_eip" "else-eip" {
+#  count = "${var.create_first_eip == false ? 1 : 0}"
+#  instance = "${aws_instance.example.id}"
+#}
+
 resource "aws_db_subnet_group" "db-subnet-group" {
   name           = "${var.environment}-db-subnet-group"
   description    = "database subnet group"

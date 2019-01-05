@@ -59,6 +59,11 @@ module "dns" {
   web_lb_dns_name        = "${module.web_lb.web_lb_dns_name}"
   public_subnet_cidrs    = "${var.public_subnet_cidrs}"
 }
+
+/* 
+  deploy a single instance instad of a cluster if some variable is true or false.
+  for now disable database in test... not pretty but works.
+
 module "db" {
   source                 = "../modules/db"
   db_subnet_ids          = "${module.network.db_subnet_ids}"
@@ -68,5 +73,5 @@ module "db" {
   rds_master_password    = "${var.rds_master_password}"
   db_sg_id               = "${module.sg.db_sg_id}"
   database_instance_type = "${var.database_instance_type}"
-}
+} */
 

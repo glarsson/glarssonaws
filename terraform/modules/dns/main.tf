@@ -16,8 +16,13 @@ resource "aws_route53_record" "www" {
 resource "aws_route53_record" "bastion" {
   count    = "${length(var.public_subnet_cidrs)}"
   zone_id  = "${aws_route53_zone.primary.zone_id}"
+  # https://github.com/hashicorp/terraform/issues/18456 nested {}'s
+  #name     = "bastion-${count.index+1}.${var.dns_zone_name}"
+  
+  
   name     = "bastion-${count.index+1}.${var.dns_zone_name}"
   type     = "CNAME"
   ttl      = "300"
   records  = ["${element(var.bastion_dns_names, count.index)}"]
 }
+
