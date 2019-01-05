@@ -50,6 +50,13 @@ resource "aws_security_group" "web_server_sg" {
     protocol    = "tcp"
     cidr_blocks = ["${var.vpc_cidr_block}"]
   }
+  
+  ingress {
+    from_port   = 5000
+    to_port     = 5000
+    protocol    = "tcp"
+    cidr_blocks = ["${var.vpc_cidr_block}"]
+  }
 
   egress {
     from_port   = 0
