@@ -44,18 +44,18 @@ Instructions, how to use this from your workstation (assuming you're running Win
    is "test_key", "staging_key" and "production_key", password or not is up to you.
 
 TO BRING UP TEST, use powershell instead of git bash;
-go to c:\source\glarssonaws\terraform\test
-run command "terraform init" and make sure it downloads the prerequisites.
-run command "terraform validate" to make sure syntax is alright, may be overkill but its nice to verify
-run command "terraform plan" to prepare terraform to take action
-finally run command "terraform apply" and make sure you answer "yes" if you agree with the changes it proposes
+1) go to c:\source\glarssonaws\terraform\test
+2) run command "terraform init" and make sure it downloads the prerequisites.
+3) run command "terraform validate" to make sure syntax is alright, may be overkill but its nice to verify
+4) run command "terraform plan" to prepare terraform to take action
+5) finally run command "terraform apply" and make sure you answer "yes" if you agree with the changes it proposes
 
 TO BRING UP STAGING, use powershell instead of git bash;
-go to c:\source\glarssonaws\terraform\staging
-run command "terraform init" and make sure it downloads the prerequisites.
-run command "terraform validate" to make sure syntax is alright, may be overkill but its nice to verify
-run command "terraform plan" to prepare terraform to take action
-finally run command "terraform apply" and make sure you answer "yes" if you agree with the changes it proposes
+1) go to c:\source\glarssonaws\terraform\staging
+2) run command "terraform init" and make sure it downloads the prerequisites.
+3) run command "terraform validate" to make sure syntax is alright, may be overkill but its nice to verify
+4) run command "terraform plan" to prepare terraform to take action
+5) finally run command "terraform apply" and make sure you answer "yes" if you agree with the changes it proposes
 
 TO BRING UP PRODUCTION, use powershell instead of git bash;
 *** same procedure will apply here but production environment isn't built yet ***
