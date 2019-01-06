@@ -1,0 +1,25 @@
+# ignore private keys
+terraform/test/keys/test_key
+terraform/staging/keys/staging_key
+terraform/production/keys/production_key
+
+# ignore terraform test stuff
+terraform/test/.terraform
+terraform/test/.terraform.tfstate.lock.info
+terraform/test/secret_variables.tf
+terraform/test/terraform.tfstate
+terraform/test/terraform.tfstate.backup
+
+# ignore terraform staging stuff
+terraform/staging/.terraform
+terraform/staging/.terraform.tfstate.lock.info
+terraform/staging/secret_variables.tf
+terraform/staging/terraform.tfstate
+terraform/staging/terraform.tfstate.backup
+
+# ignore terraform production stuff
+terraform/production/.terraform
+terraform/production/.terraform.tfstate.lock.info
+terraform/production/secret_variables.tf
+terraform/production/terraform.tfstate
+terraform/production/terraform.tfstate.backup
