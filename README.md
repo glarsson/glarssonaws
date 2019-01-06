@@ -58,7 +58,7 @@ TO BRING UP STAGING, use powershell instead of git bash;
 5) finally run command "terraform apply" and make sure you answer "yes" if you agree with the changes it proposes
 
 TO BRING UP PRODUCTION, use powershell instead of git bash;
-*** same procedure will apply here but production environment isn't built yet ***
+1) same procedure will apply here but production environment isn't built yet, so TODO.
 
 
 
