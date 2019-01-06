@@ -1,9 +1,14 @@
 glarssonaws
 
-An example of how to manage a highly available (three separate locations at once) dotnet core application
+An example of how to bring up a HA (highly available) dotnet core application
 on AWS using, in this example, CentOS, AWS ELB, Aurora Cluster and dotnet core 2.1 for Linux
 
-Instructions to use:
+- Notes
+
+* 
+
+
+Instructions, how to use this from your workstation:
 
 1) Download terraform, make sure its in %PATH%
 
@@ -16,6 +21,13 @@ Instructions to use:
 5) Create c:\source (or whatever you want) and cd into it
 
 6) Open git bash and run ‘git clone https://github.com/glarsson/glarssonaws.git’ in /c/source
+
+7) Create keys;
+   in git bash go to /terraform/test/keys and run:
+   ssh-keygen -t rsa -b 4096 -C "your_email@address.com"
+   name the key "test_key" and enter a password if you'd like, the private key is in .gitignore
+   do the same for /terraform/staging/keys and /terraform/production/keys, the name of the keys
+   when asked by ssh-keygen is "staging_key" and "production_key", password or not is up to you.
 
 TO BRING UP TEST
 “cd” into ./glarssonaws/terraform/test and run:
@@ -30,15 +42,8 @@ TO BRING UP STAGING
 	Terraform apply
 
 TO BRING UP PRODUCTION
-<coming...>
 
 
 
-
-Thoughts, considerations, issues;
-Need to make sure all private instances start after network is available
-Are tags set for all resources?
-Sg’s setup properly?
-Add DNS entries for internal/private servers
 
 
