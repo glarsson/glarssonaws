@@ -43,6 +43,20 @@ Instructions, how to use this from your workstation (assuming you're running Win
    /c/source/glarssonaws/terraform/production/keys, the name of the keys when asked by ssh-keygen
    is "test_key", "staging_key" and "production_key", password or not is up to you.
 
+8) In each terraform environment, create "secret_variables.tf";
+   c:\source\glarssonaws\terraform\test\secret_variables.tf
+   c:\source\glarssonaws\terraform\staging\secret_variables.tf
+   c:\source\glarssonaws\terraform\production\secret_variables.tf
+   conents of that file:
+   
+   variable "rds_master_username" {
+   default = "whatever_username_you_want"
+   }
+   variable "rds_master_password" {
+   default = "whatever_password_you_want"
+   }
+
+
 TO BRING UP TEST, use powershell instead of git bash;
 1) go to c:\source\glarssonaws\terraform\test
 2) run command "terraform init" and make sure it downloads the prerequisites.
