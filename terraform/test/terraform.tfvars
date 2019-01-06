@@ -16,9 +16,10 @@ key_name                = "test_key"
 
 # temporarily change ami from "ami-b133bccf" in eu-north-1 to same but in us-east-1: "ami-9887c6e7"
 
-bastion_instance_type   = "t3.nano"
+# temp using t3.small for troubleshooting
+#bastion_instance_type   = "t3.nano"
 bastion_ami             = "ami-9887c6e7"
-#bastion_instance_type   = "t3.small" 
+bastion_instance_type   = "t3.small" 
 
 # temporarily using "t3.small" instead of "t3.nano" because of the bigger RAM, dotnet core doesn't seem to
 # like tight spaces... going to cost a fortune :P
