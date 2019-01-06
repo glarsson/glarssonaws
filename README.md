@@ -37,11 +37,17 @@ Instructions, how to use this from your workstation (assuming you're running Win
 
 7) Create keys;
    in git bash go to /c/source/glarssonaws/terraform/test/keys and run:
+
    ssh-keygen -t rsa -b 4096 -C "your_email@address.com"
+
    name the key "test_key" and enter a password if you'd like, the private key is in .gitignore
+
    do the same for /c/source/glarssonaws/terraform/staging/keys and 
+
    /c/source/glarssonaws/terraform/production/keys, the name of the keys when asked by ssh-keygen
+
    is "test_key", "staging_key" and "production_key", password or not is up to you.
+   
 
 8) In each terraform environment, create "secret_variables.tf", this file will contain the username
    and password for your aurora cluster root user:
