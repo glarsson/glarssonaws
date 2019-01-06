@@ -43,7 +43,8 @@ Instructions, how to use this from your workstation (assuming you're running Win
    /c/source/glarssonaws/terraform/production/keys, the name of the keys when asked by ssh-keygen
    is "test_key", "staging_key" and "production_key", password or not is up to you.
 
-8) In each terraform environment, create "secret_variables.tf";
+8) In each terraform environment, create "secret_variables.tf", this file will contain the username
+   and password for your aurora cluster root user:
 
    c:\source\glarssonaws\terraform\test\secret_variables.tf
 
@@ -62,7 +63,7 @@ Instructions, how to use this from your workstation (assuming you're running Win
    variable "rds_master_password" {
 
    default = "whatever_password_you_want"
-   
+
    }
 
 
