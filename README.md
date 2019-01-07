@@ -7,19 +7,18 @@ Scroll down for instructions how to bring this up.
 
 Considerations, thoughts, todo, etc:
 
-* 'dotnet' process should restart if crashed, and/or should be a service
+...
 
--
+...
 
--
+...
 
--
+...
 
--
+...
 
--
+...
 
--
 
 Instructions, how to use this from your workstation (assuming you're running Windows):
 
@@ -29,7 +28,7 @@ Instructions, how to use this from your workstation (assuming you're running Win
 
 3) Download AWS CLI - https://s3.amazonaws.com/aws-cli/AWSCLI64PY3.msi
 
-4) Run ‘aws configure’ to configure AWS credentials - for this example please use region "eu-north-1" (doesn't really matter though but thats the region that's targeted here)
+4) Run ‘aws configure’ to configure AWS credentials - for this example please use region "eu-north-1" (doesn't really matter though, region is set in terraform)
 
 5) Create c:\source (or whatever you want)
 
@@ -73,16 +72,28 @@ Instructions, how to use this from your workstation (assuming you're running Win
    secret_variables.tf. The file should look like this:
 
    {
+
   "Logging": {
+
     "LogLevel": {
+
       "Default": "Warning"
+
     }
+
   },
+
   "AllowedHosts": "*",
+
   "ConnectionStrings": {
+
     "DefaultConnection": "server=MYSQL_SERVER;userid=MYSQL_USERNAME;password=MYSQL_PASSWORD;database=glarssonaws_db;"
+
   }
+
 }
+
+
 
 TO BRING UP TEST, use powershell instead of git bash;
 1) go to c:\source\glarssonaws\terraform\test
