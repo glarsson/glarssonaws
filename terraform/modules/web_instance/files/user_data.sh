@@ -28,11 +28,13 @@ yum -y install rh-dotnet21
 
 adduser dotnet
 
+echo export PATH="$PATH:/opt/rh/rh-dotnet21/root/usr/bin:/home/dotnet/.dotnet/tools" > 
+
 # switch to dotnet user and build/start application
 sudo -u dotnet bash << EOF
 
 # setup paths
-export PATH="$PATH:/opt/rh/rh-dotnet21/root/usr/bin"
+export PATH="/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/dotnet/.local/bin:/home/dotnet/bin:/opt/rh/rh-dotnet21/root/usr/bin:/home/dotnet/.dotnet/tools"
 
 cd /home/dotnet
 mkdir app
@@ -81,7 +83,7 @@ dotnet build
 
 # install dotnet-ef and create the database
 dotnet tool install --global dotnet-ef --version 2.1.1
-export PATH="$PATH:/home/dotnet/.dotnet/tools"
+
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 

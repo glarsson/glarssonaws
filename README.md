@@ -9,17 +9,17 @@ Considerations, thoughts, todo, etc:
 
 * 'dotnet' process should restart if crashed, and/or should be a service
 
+-
 
+-
 
+-
 
+-
 
+-
 
-
-
-
-
-
-
+-
 
 Instructions, how to use this from your workstation (assuming you're running Windows):
 
@@ -36,18 +36,14 @@ Instructions, how to use this from your workstation (assuming you're running Win
 6) Open git bash, go to /c/source/ and run ‘git clone https://github.com/glarsson/glarssonaws.git’
 
 7) Create keys;
-   in git bash go to /c/source/glarssonaws/terraform/test/keys and run:
-
+   in git bash create the ssh keys for the environments in the following directories:
+   /c/source/glarssonaws/terraform/test/keys
+   /c/source/glarssonaws/terraform/staging/keys
+   /c/source/glarssonaws/terraform/production/keys
+   to create key run command in git bash:
    ssh-keygen -t rsa -b 4096 -C "your_email@address.com"
 
-   name the key "test_key" and enter a password if you'd like, the private key is in .gitignore
-
-   do the same for /c/source/glarssonaws/terraform/staging/keys and 
-
-   /c/source/glarssonaws/terraform/production/keys, the name of the keys when asked by ssh-keygen
-
-   is "test_key", "staging_key" and "production_key", password or not is up to you.
-   
+   name the key "<environment>_key" so for each it will be "test_key", "staging_key" and "production_key".
 
 8) In each terraform environment, create "secret_variables.tf", this file will contain the username
    and password for your aurora cluster root user:
@@ -72,6 +68,21 @@ Instructions, how to use this from your workstation (assuming you're running Win
 
    }
 
+9) You'll need a "appsettings.json" file in glarssonaws/dotnet_core_application/dotnet_core/application/appsettings.json
+   if you want to be able to make changes to the application. Pick the same username and password that you defined in
+   secret_variables.tf. The file should look like this:
+
+   {
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "server=MYSQL_SERVER;userid=MYSQL_USERNAME;password=MYSQL_PASSWORD;database=glarssonaws_db;"
+  }
+}
 
 TO BRING UP TEST, use powershell instead of git bash;
 1) go to c:\source\glarssonaws\terraform\test
