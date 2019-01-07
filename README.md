@@ -1,15 +1,13 @@
 glarssonaws
 
-An example of how to bring up a HA (highly available) dotnet core application
-on AWS using, in this example, CentOS, AWS ELB, Aurora Cluster and dotnet core 2.1 for Linux
+An example of how to bring up a highly available dotnet core application
+on AWS using - in this example; Terraform, CentOS 7, AWS ELB, Aurora Cluster and dotnet core 2.1 for Linux
 
 Scroll down for instructions how to bring this up.
 
 Considerations, thoughts, todo, etc:
 
-...
-
-...
+. check if db has already been created, if so do not create again (staging/production)
 
 ...
 
@@ -36,13 +34,17 @@ Instructions, how to use this from your workstation (assuming you're running Win
 
 7) Create keys;
    in git bash create the ssh keys for the environments in the following directories:
-   /c/source/glarssonaws/terraform/test/keys
-   /c/source/glarssonaws/terraform/staging/keys
-   /c/source/glarssonaws/terraform/production/keys
+
+   /c/source/glarssonaws/terraform/test/keys/
+
+   /c/source/glarssonaws/terraform/staging/keys/
+
+   /c/source/glarssonaws/terraform/production/keys/
+
    to create key run command in git bash:
    ssh-keygen -t rsa -b 4096 -C "your_email@address.com"
 
-   name the key "<environment>_key" so for each it will be "test_key", "staging_key" and "production_key".
+   name the key "ENVIRONMENT_key" - so for each it will be "test_key", "staging_key" and "production_key".
 
 8) In each terraform environment, create "secret_variables.tf", this file will contain the username
    and password for your aurora cluster root user:
@@ -67,7 +69,7 @@ Instructions, how to use this from your workstation (assuming you're running Win
 
    }
 
-9) You'll need a "appsettings.json" file in glarssonaws/dotnet_core_application/dotnet_core/application/appsettings.json
+9) You'll need a "appsettings.json" file in glarssonaws/dotnet_core_application/dotnet_core_application/appsettings.json
    if you want to be able to make changes to the application. Pick the same username and password that you defined in
    secret_variables.tf. The file should look like this:
 
@@ -95,22 +97,22 @@ Instructions, how to use this from your workstation (assuming you're running Win
 
 
 
-TO BRING UP TEST, use powershell instead of git bash;
+TO BRING UP TEST;
 1) go to c:\source\glarssonaws\terraform\test
 2) run command "terraform init" and make sure it downloads the prerequisites.
 3) run command "terraform validate" to make sure syntax is alright, may be overkill but its nice to verify
 4) run command "terraform plan" to prepare terraform to take action
 5) finally run command "terraform apply" and make sure you answer "yes" if you agree with the changes it proposes
 
-TO BRING UP STAGING, use powershell instead of git bash;
+TO BRING UP STAGING;
 1) go to c:\source\glarssonaws\terraform\staging
 2) run command "terraform init" and make sure it downloads the prerequisites.
 3) run command "terraform validate" to make sure syntax is alright, may be overkill but its nice to verify
 4) run command "terraform plan" to prepare terraform to take action
 5) finally run command "terraform apply" and make sure you answer "yes" if you agree with the changes it proposes
 
-TO BRING UP PRODUCTION, use powershell instead of git bash;
-1) same procedure will apply here but production environment isn't built yet, so TODO.
+TO BRING UP PRODUCTION;
+1) production is the exact same thing as staging in this example, so it has been skipped for cost reasons.
 
 
 
