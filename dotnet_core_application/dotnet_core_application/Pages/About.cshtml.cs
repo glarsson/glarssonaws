@@ -12,7 +12,7 @@ namespace dotnet_core_application.Pages
 
         public void OnGet()
         {
-            Message = "Your application description page.";
+            Message = "";
         }
     }
 }

@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using MySql.Data.EntityFrameworkCore;
+using MySql.Data.EntityFrameworkCore.Extensions;
 
 namespace dotnet_core_application
 {
@@ -29,6 +32,9 @@ namespace dotnet_core_application
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddDbContext<AppDbContext>(options =>
+        options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

@@ -5,10 +5,10 @@ on AWS using, in this example, CentOS, AWS ELB, Aurora Cluster and dotnet core 2
 
 Scroll down for instructions how to bring this up.
 
-TODO:
+Considerations, thoughts, todo, etc:
 
-* need to make sure 'dotnet' process retarts if it crashes, or alternatively bring up
-  new web instances if load balancer notices number of webnodes is under threshold for a period of time
+* 'dotnet' process should restart if crashed, and/or should be a service
+
 
 
 

@@ -12,3 +12,6 @@ variable "environment" {}
 variable "availability_zones" {
   type = "list"
 }
+variable "db_availability_zones" {
+  type = "list"
+}

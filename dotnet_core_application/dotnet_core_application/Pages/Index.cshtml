@@ -4,20 +4,44 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="row">
-    <div class="col-md-3">
-        <h2>Technologies used</h2>
-        <ul>
-            <li>Here are links to the tech used in this demo</li>
-            <li><a href="https://www.terraform.io/">Terraform</a></li>
-            <li><a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
-            <li><a href="https://github.com/dotnet/core">dotnet core</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Contact</h2>
-        <ul>
-            <li>You can contact me on gerry.larsson a gmail.com</li>
-        </ul>
-    </div>
- </div>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <td>
+                <br />
+                <p>
+                    Please sign the guestbook:
+                </p>
+                <div asp-validation-summary="All"></div>
+                <form method="POST">
+                    <div>Name: <input asp-for="Guest.Name" /></div>
+                    <br />
+                    <input type="submit" />
+                </form>
+            </td>
+    </table>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var guest in Model.Guests)
+            {
+                <tr>
+                    <td>@guest.Id</td>
+                    <td>@guest.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</body>
+</html>

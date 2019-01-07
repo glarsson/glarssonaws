@@ -14,6 +14,6 @@ output "web_nodes_ips" {
   value = "${module.web_instance.web_nodes_ips}"
 }
 
-output "cluster_endpoint" {
-  value = "${module.db.cluster_endpoint}"
+output "database_endpoint" {
+  value = "${module.aurora.database_endpoint}"
 }

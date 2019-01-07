@@ -13,3 +13,7 @@ output "bastion_dns_names" {
 output "web_nodes_ips" {
   value = "${module.web_instance.web_nodes_ips}"
 }
+
+output "database_endpoint" {
+  value = "${module.db_test.database_endpoint}"
+}

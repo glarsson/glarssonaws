@@ -13,6 +13,8 @@ module "network" {
   private_subnet_cidrs   = "${var.private_subnet_cidrs}"
   db_subnet_cidrs        = "${var.db_subnet_cidrs}"
   availability_zones     = "${var.availability_zones}"
+  db_availability_zones  = "${var.db_availability_zones}"
+  
 }
 module "sg" {
   source                 = "../modules/sg"
@@ -58,14 +60,11 @@ module "dns" {
   vpc_id                 = "${module.network.vpc_id}"
   web_lb_dns_name        = "${module.web_lb.web_lb_dns_name}"
   public_subnet_cidrs    = "${var.public_subnet_cidrs}"
+  database_endpoint      = "${module.db_test.database_endpoint}"
 }
 
-/* 
-  deploy a single instance instad of a cluster if some variable is true or false.
-  for now disable database in test... not pretty but works.
-
-module "db" {
-  source                 = "../modules/db"
+module "db_test" {
+  source                 = "../modules/db_test"
   db_subnet_ids          = "${module.network.db_subnet_ids}"
   db_subnet_cidrs        = "${var.db_subnet_cidrs}"
   environment            = "${var.environment}"
@@ -73,5 +72,4 @@ module "db" {
   rds_master_password    = "${var.rds_master_password}"
   db_sg_id               = "${module.sg.db_sg_id}"
   database_instance_type = "${var.database_instance_type}"
-} */
-
+}

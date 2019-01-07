@@ -13,6 +13,14 @@ resource "aws_route53_record" "www" {
   records  = ["${var.web_lb_dns_name}"]
 }
 
+resource "aws_route53_record" "database-endpoint" {
+  zone_id  = "${aws_route53_zone.primary.zone_id}"
+  name     = "database-endpoint.${var.dns_zone_name}"
+  type     = "CNAME"
+  ttl      = "300"
+  records  = ["${var.database_endpoint}"]
+}
+
 resource "aws_route53_record" "bastion" {
   count    = "${length(var.public_subnet_cidrs)}"
   zone_id  = "${aws_route53_zone.primary.zone_id}"

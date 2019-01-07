@@ -80,7 +80,7 @@ resource "aws_security_group" "web_server_sg" {
 
 resource "aws_security_group" "db_sg" {
   name        = "${var.environment}-db-sg"
-  description = "Security group for database nodes to allow the local network to access ssh and mariadb port"
+  description = "Security group for database nodes to allow the local network to access ssh and db port"
   vpc_id      = "${var.vpc_id}"
 
   ingress {

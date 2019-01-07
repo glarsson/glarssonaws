@@ -7,3 +7,5 @@ variable "bastion_dns_names" {
 variable "public_subnet_cidrs" {
   type = "list"
 }
+
+variable "database_endpoint" {}
