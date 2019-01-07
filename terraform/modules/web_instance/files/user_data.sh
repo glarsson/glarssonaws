@@ -28,8 +28,6 @@ yum -y install rh-dotnet21
 
 adduser dotnet
 
-echo export PATH="$PATH:/opt/rh/rh-dotnet21/root/usr/bin:/home/dotnet/.dotnet/tools" > 
-
 # switch to dotnet user and build/start application
 sudo -u dotnet bash << EOF
 
