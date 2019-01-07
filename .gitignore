@@ -23,3 +23,7 @@ terraform/production/.terraform.tfstate.lock.info
 terraform/production/secret_variables.tf
 terraform/production/terraform.tfstate
 terraform/production/terraform.tfstate.backup
+
+# ignore file that may potentially be created by vs code
+.vscode
+
