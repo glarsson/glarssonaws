@@ -33,7 +33,7 @@ adduser dotnet
 
 # switch to dotnet user and build/start application
 sudo -u dotnet bash << EOF
-database_password="DATABASE PASSWORD GOES HERE - BUT THIS WILL CHANGE VERY SOON"
+database_password="DB PASSWORD GOES HERE - BUT THIS WILL CHANGE VERY SOON"
 
 cd /home/dotnet
 mkdir app
