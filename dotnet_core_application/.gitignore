@@ -5,6 +5,9 @@
 # for this demo, ignore appsettings.json (needs to be created manually)
 dotnet_core_application/appsettings.json
 
+# ignore migrations
+dotnet_core_application/Migrations
+
 
 # User-specific files
 *.suo

@@ -45,6 +45,8 @@ module "web_instance" {
   vpc_cidr_block         = "${var.vpc_cidr}"
   web_server_sg_id       = "${module.sg.web_server_sg_id}"
   web_inbound_sg_id      = "${module.sg.web_inbound_sg_id}"
+database_endpoint        = "${module.db_test.database_endpoint}"
+  rds_master_password    = "${var.rds_master_password}" 
 }
 module "web_lb" {
   source                 = "../modules/web_lb"

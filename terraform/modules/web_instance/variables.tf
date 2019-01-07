@@ -15,3 +15,5 @@ variable "environment" {}
 variable "vpc_id" {}
 variable "web_server_sg_id" {}
 variable "web_inbound_sg_id" {}
+variable "database_endpoint" {}
+variable "rds_master_password" {}

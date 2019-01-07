@@ -6,9 +6,9 @@
 
 # unfortunately, going to use a dirty hack here and sleep for <a few> minutes before continuing the script
 
-# here comes the sleeper, 5 minutes was too much, trying with 2
+# here comes the sleeper, 5 minutes was too much, trying with 1
 # it would be better to check here if for example "ping 8.8.8.8" works...
-sleep 2m
+sleep 1m
 
 # install some tools, some may not be needed in a production environment
 yum -y install nano
@@ -16,9 +16,6 @@ yum -y install links
 yum -y install telnet
 yum -y install wget
 yum -y install nc
-
-# install apache, maybe not needed
-#yum -y install httpd
 
 # install dotnet core
 yum -y install git
@@ -33,7 +30,9 @@ adduser dotnet
 
 # switch to dotnet user and build/start application
 sudo -u dotnet bash << EOF
-database_password="DB PASSWORD GOES HERE - BUT THIS WILL CHANGE VERY SOON"
+
+# setup paths
+export PATH="$PATH:/opt/rh/rh-dotnet21/root/usr/bin"
 
 cd /home/dotnet
 mkdir app
@@ -43,20 +42,20 @@ cd glarssonaws
 rm -rf README.md terraform
 
 # ugly hack to check which environment/database endpoint to connect to
+#
+#if nc -z database-endpoint.test.glarssonaws.local 3306 2>/dev/null; then
+#    database_endpoint="database-endpoint.test.glarssonaws.local"
+#fi
+#
+#if nc -z database-endpoint.staging.glarssonaws.local 3306 2>/dev/null; then
+#    database_endpoint="database-endpoint.staging.glarssonaws.local"
+#fi
+#
+#if nc -z database-endpoint.production.glarssonaws.local 3306 2>/dev/null; then
+#    database_endpoint="database-endpoint.production.glarssonaws.local"
+#fi
 
-if nc -z database-endpoint.test.glarssonaws.local 3306 2>/dev/null; then
-    database_endpoint="database-endpoint.test.glarssonaws.local"
-fi
-
-if nc -z database-endpoint.staging.glarssonaws.local 3306 2>/dev/null; then
-    database_endpoint="database-endpoint.staging.glarssonaws.local"
-fi
-
-if nc -z database-endpoint.production.glarssonaws.local 3306 2>/dev/null; then
-    database_endpoint="database-endpoint.production.glarssonaws.local"
-fi
-
-### CONFIGURE THE APPSETTINGS.JSON FILE - THIS IS AN UGLY HACK
+# create the appsettings.json file
 
 cat >/home/dotnet/app/glarssonaws/dotnet_core_application/dotnet_core_application/appsettings.json <<EOM
 {
@@ -67,24 +66,27 @@ cat >/home/dotnet/app/glarssonaws/dotnet_core_application/dotnet_core_applicatio
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-  "DefaultConnection": "server=\${database_endpoint};userid=root;password=\${database_password};database=glarssonaws_db;
+  "DefaultConnection": "server=${database_endpoint};userid=root;password=${rds_master_password};database=glarssonaws_db;"
   }
 }
 EOM
 
-cd dotnet_core_application/dotnet_core_application
+cd /home/dotnet/app/glarssonaws/dotnet_core_application/dotnet_core_application
 
-# compile and run the application, it runs HTTP on port 5000
+# compile the application
 # $HOME needs to be defined or dotnet core doesn't work, so we make sure before building and running
 export HOME="/home/dotnet"
 
-/opt/rh/rh-dotnet21/root/usr/bin/dotnet build
+dotnet build
 
-# not sure if this is required yet - it creates the DB
-#/opt/rh/rh-dotnet21/root/usr/bin/dotnet ef migrations add InitialCreate
-#/opt/rh/rh-dotnet21/root/usr/bin/dotnet ef database update
+# install dotnet-ef and create the database
+dotnet tool install --global dotnet-ef --version 2.1.1
+export PATH="$PATH:/home/dotnet/.dotnet/tools"
+dotnet ef migrations add InitialCreate
+dotnet ef database update
 
-/opt/rh/rh-dotnet21/root/usr/bin/dotnet run
+# finally run the application, it runs HTTP on port 5000
+dotnet run
 EOF
 
 # back to root

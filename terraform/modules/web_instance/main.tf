@@ -1,3 +1,12 @@
+data "template_file" "init" {
+  template = "${file("${path.module}/files/user_data.sh")}"
+
+  vars {
+    database_endpoint   = "${var.database_endpoint}"
+    rds_master_password = "${var.rds_master_password}"
+  }
+}  
+
 resource "aws_instance" "web" {
   count                   = "${length(var.private_subnet_cidrs)}"
   ami                     = "${var.web_ami}"
@@ -11,7 +20,7 @@ resource "aws_instance" "web" {
   }
 
   key_name                = "${var.key_name}"
-  user_data               = "${file("${path.module}/files/user_data.sh")}"
+  user_data               = "${data.template_file.init.rendered}"
   tags = {
     Name                  = "${var.environment}-web-${count.index+1}"
     Environment           = "${var.environment}"

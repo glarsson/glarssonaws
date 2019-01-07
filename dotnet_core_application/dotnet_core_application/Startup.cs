@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.EntityFrameworkCore;
-using MySql.Data.EntityFrameworkCore.Extensions;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+
 
 namespace dotnet_core_application
 {
@@ -34,7 +34,7 @@ namespace dotnet_core_application
             });
 
             services.AddDbContext<AppDbContext>(options =>
-        options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+        options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
