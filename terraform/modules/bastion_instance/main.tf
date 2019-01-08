@@ -1,3 +1,11 @@
+data "template_file" "init" {
+  template = "${file("${path.module}/files/user_data.sh")}"
+
+  vars {
+    terraform_hostname   = "bastion-${count.index+1}.${var.environment}.glarssonaws.local"
+  }
+}  
+
 resource "aws_instance" "bastion" {
   count                       = "${length(var.public_subnet_cidrs)}"
   ami                         = "${var.bastion_ami}"
@@ -11,7 +19,7 @@ resource "aws_instance" "bastion" {
     device_name               = "/dev/sda1"
     delete_on_termination     = true
   }
-  user_data                   = "${file("${path.module}/files/user_data.sh")}"  
+  user_data                   = "${data.template_file.init.rendered}"
   tags {
     Name                      = "${var.environment}-bastion-server-${count.index+1}"
     Environment               = "${var.environment}"

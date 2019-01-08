@@ -24,12 +24,12 @@ key_name                = "test_key"
 # temp using t3.small for troubleshooting
 #bastion_instance_type   = "t3.nano"
 bastion_ami             = "ami-9887c6e7"
-bastion_instance_type   = "t3.nano" 
+bastion_instance_type   = "t2.nano" 
 
 # temporarily using "t3.micro" instead of "t3.nano" because of the bigger RAM, dotnet core doesn't seem to
 # like tight spaces... going to cost a fortune :P
 
-web_instance_type       = "t3.micro"
+web_instance_type       = "t2.micro"
 web_ami                 = "ami-9887c6e7"
 
 # db.t3.micro might need to be used in eu-north-1

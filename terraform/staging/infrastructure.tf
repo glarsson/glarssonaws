@@ -45,7 +45,8 @@ module "web_instance" {
   web_server_sg_id       = "${module.sg.web_server_sg_id}"
   web_inbound_sg_id      = "${module.sg.web_inbound_sg_id}"
   database_endpoint      = "${module.aurora.database_endpoint}"
-  rds_master_password    = "${var.rds_master_password}" 
+  rds_master_password    = "${var.rds_master_password}"
+  name_servers           = "${module.dns.name_servers}"
 }
 module "web_lb" {
   source                 = "../modules/web_lb"
@@ -57,11 +58,14 @@ module "web_lb" {
 module "dns" {
   source                 = "../modules/dns"
   bastion_dns_names      = "${module.bastion_instance.bastion_dns_names}"
+  web_nodes_ips           = "${module.web_instance.web_nodes_ips}"
   dns_zone_name          = "${var.dns_zone_name}"
   vpc_id                 = "${module.network.vpc_id}"
   web_lb_dns_name        = "${module.web_lb.web_lb_dns_name}"
   public_subnet_cidrs    = "${var.public_subnet_cidrs}"
+  private_subnet_cidrs   = "${var.private_subnet_cidrs}"  
   database_endpoint      = "${module.aurora.database_endpoint}"
+  environment            = "${var.environment}"  
 }
 
 module "aurora" {

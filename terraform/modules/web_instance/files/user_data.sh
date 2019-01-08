@@ -8,20 +8,27 @@
 
 # here comes the sleeper, 5 minutes was too much, trying with 1
 # it would be better to check here if for example "ping 8.8.8.8" works...
-sleep 1m
+# sleep 1m
 
-# install some tools, some may not be needed in a production environment
+# install some tools
 yum -y install nano
 yum -y install links
 yum -y install telnet
 yum -y install wget
 yum -y install nc
+yum -y install bind-utils
+
+# set hostname
+hostnamectl set-hostname --static ${terraform_hostname}
+echo 'preserve_hostname: true' | tee -a /etc/cloud/cloud.cfg
+
+# add route53 DNS server
+# dig +short ${route53_name_server} >> /etc/resolv.conf
 
 # install dotnet core
 yum -y install git
 yum -y install centos-release-dotnet
 yum -y install rh-dotnet21
-
 
 # not needed for init script
 #scl enable rh-dotnet21 bash
@@ -40,20 +47,6 @@ cd app
 git clone https://github.com/glarsson/glarssonaws.git
 cd glarssonaws
 rm -rf README.md terraform
-
-# ugly hack to check which environment/database endpoint to connect to
-#
-#if nc -z database-endpoint.test.glarssonaws.local 3306 2>/dev/null; then
-#    database_endpoint="database-endpoint.test.glarssonaws.local"
-#fi
-#
-#if nc -z database-endpoint.staging.glarssonaws.local 3306 2>/dev/null; then
-#    database_endpoint="database-endpoint.staging.glarssonaws.local"
-#fi
-#
-#if nc -z database-endpoint.production.glarssonaws.local 3306 2>/dev/null; then
-#    database_endpoint="database-endpoint.production.glarssonaws.local"
-#fi
 
 # create the appsettings.json file
 
@@ -82,8 +75,11 @@ dotnet build
 # install dotnet-ef and create the database
 dotnet tool install --global dotnet-ef --version 2.1.1
 
-dotnet ef migrations add InitialCreate
-dotnet ef database update
+# quick hack to make sure only one web node creates the database
+if hostname -f | grep web-1 2>/dev/null; then
+  dotnet ef migrations add InitialCreate
+  dotnet ef database update
+fi
 
 # finally run the application, it runs HTTP on port 5000
 dotnet run

@@ -2,8 +2,10 @@ data "template_file" "init" {
   template = "${file("${path.module}/files/user_data.sh")}"
 
   vars {
-    database_endpoint   = "${var.database_endpoint}"
-    rds_master_password = "${var.rds_master_password}"
+    database_endpoint    = "${var.database_endpoint}"
+    rds_master_password  = "${var.rds_master_password}"
+    terraform_hostname   = "web-${count.index+1}.${var.environment}.glarssonaws.local"
+    route53_name_server  = "${var.name_servers[0]}"
   }
 }  
 

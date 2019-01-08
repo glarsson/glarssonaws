@@ -1,7 +1,7 @@
 resource "aws_security_group" "bastion_server_sg" {
   vpc_id      = "${var.vpc_id}"
   name        = "${var.environment}-bastion-sg"
-  description = "Allow SSH to bastion host from anywhere"
+  description = "bastion server rules"
   ingress {
     from_port   = 22
     to_port     = 22
@@ -9,9 +9,9 @@ resource "aws_security_group" "bastion_server_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
+    from_port   = 53
+    to_port     = 53
+    protocol    = "udp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
@@ -34,7 +34,7 @@ resource "aws_security_group" "bastion_server_sg" {
 
 resource "aws_security_group" "web_server_sg" {
   name        = "${var.environment}-web-server-sg"
-  description = "Security group for web nodes to allow the local network to access ssh and web services"
+  description = "web node rules"
   vpc_id      = "${var.vpc_id}"
 
   ingress {
@@ -80,7 +80,7 @@ resource "aws_security_group" "web_server_sg" {
 
 resource "aws_security_group" "db_sg" {
   name        = "${var.environment}-db-sg"
-  description = "Security group for database nodes to allow the local network to access ssh and db port"
+  description = "database rules"
   vpc_id      = "${var.vpc_id}"
 
   ingress {
