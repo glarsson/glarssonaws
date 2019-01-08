@@ -1,5 +1,3 @@
-# dotnet core 2.1 application with mysql database on AWS
-
 ### An example of how to bring up a highly available dotnet core application on AWS using - in this example; Terraform, CentOS 7, AWS ELB, AWS EC2, AWS Aurora Cluster (mysql) and dotnet core 2.1 for Linux
 
 #### Instructions how to deploy this from your Windows workstation
