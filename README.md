@@ -29,7 +29,7 @@
      default = "whatever_password_you_want"
    }
    ```
-9. If you want to debug/run/develop the dotnet core application you need to add "appsettings.json" in glarssonaws/dotnet_core_application/dotnet_core_application/ - pick the same username and password as in secret_variables.tf:
+9. If you want to debug/run/develop the dotnet core application locally you need to add "appsettings.json" in glarssonaws/dotnet_core_application/dotnet_core_application/ - of course you need a local mysql server for this..
    ```
    {
      "Logging": {
