@@ -1,15 +1,5 @@
 #!/bin/bash
 
-# initial configuration for web nodes
-# instances are brought up before network is available which makes yum unable to find any repos...
-# depends_on feature seems to be lacking when used within modules, maybe in version 0.12 that will work
-
-# unfortunately, going to use a dirty hack here and sleep for <a few> minutes before continuing the script
-
-# here comes the sleeper, 5 minutes was too much, trying with 1
-# it would be better to check here if for example "ping 8.8.8.8" works...
-# sleep 1m
-
 # install some tools
 yum -y install nano
 yum -y install links
@@ -25,7 +15,7 @@ echo 'preserve_hostname: true' | tee -a /etc/cloud/cloud.cfg
 # add route53 DNS server
 # dig +short ${route53_name_server} >> /etc/resolv.conf
 
-# install dotnet core
+# install git and dotnet core
 yum -y install git
 yum -y install centos-release-dotnet
 yum -y install rh-dotnet21

@@ -57,4 +57,13 @@
 4. Finally run command "terraform apply" and make sure you answer "yes" if you agree with the changes it proposes
    
 #### To bring up production
-1. Production doesn't exist, you can look at staging as the same as production. It was not developed here because of cost-saving reasons. Every time these instances are brought up there is a cost.
+1. Production doesn't exist, you can look at staging as the same as production. It was not developed here because of cost and time saving reasons. Every time these environments are brought up there is a cost and it takes ~25-30 minutes, test is a bit quicker.
+
+#### To bring down test (completely remove everything from AWS)
+1. Go to c:\source\glarssonaws\terraform\test
+2. Run command "terraform destroy" and make sure you answer "yes" to confirm
+
+#### To bring down staging (completely remove everything from AWS)
+1. Go to c:\source\glarssonaws\terraform\staging
+2. Run command "terraform destroy" and make sure you answer "yes" to confirm
+
